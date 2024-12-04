@@ -1,0 +1,1 @@
+This is the README file for the bot service of cineteca-bot
