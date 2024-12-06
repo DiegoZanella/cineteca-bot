@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+
 def get_today_movies(web_driver, page_url) -> list:
     web_driver.get(page_url)
     WebDriverWait(web_driver, 10)
@@ -23,6 +24,7 @@ def get_today_movies(web_driver, page_url) -> list:
             continue
 
     return movie_links
+
 
 def get_movie_info(web_driver, link):
     print(f"This is the movie's link {link}")
