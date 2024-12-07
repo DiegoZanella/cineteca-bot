@@ -1,3 +1,5 @@
+from logging.config import listen
+
 from flask import Flask, request, jsonify
 import scrapper
 import db_connector
@@ -16,7 +18,16 @@ def scraper():
     try:
         # Call the scrapper function with the provided date
         movies = scrapper.start_scrapper(date)
-        db_connector.write_to_db(movies)
+        print("Successful scrapper call")
+        print("Writing to DB...")
+        db_connector.write_to_db(
+            movies,
+            host="localhost",
+            user="movie_user",
+            password="movie_password",
+            database="movies_db"
+        )
+        print("Write to DB successful")
 
         return jsonify(movies)
     except Exception as e:
@@ -24,4 +35,4 @@ def scraper():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)

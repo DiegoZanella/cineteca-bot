@@ -1,4 +1,4 @@
-from selenium.webdriver import Firefox
+from selenium.webdriver import Firefox, FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -76,7 +76,13 @@ def get_movie_info(web_driver, link):
 def start_scrapper(date):
     url = f"https://www.cinetecanacional.net/sedes/cartelera.php?cinemaId=003&dia={date}#gsc.tab=0"
 
-    driver = Firefox()
+    # Configure Firefox to run in headless mode
+    options = FirefoxOptions()
+    options.add_argument("--headless")  # Run Firefox in headless mode
+    options.add_argument("--no-sandbox")  # Required in some Docker environments
+    options.add_argument("--disable-dev-shm-usage")  # Prevent shared memory issues
+    driver = Firefox(options=options)
+
     try:
         links_list = get_today_movies(driver, url)
     except:
