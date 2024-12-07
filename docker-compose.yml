@@ -29,3 +29,12 @@ services:
       DB_USER: movie_user
       DB_PASSWORD: movie_password
       DB_DATABASE: movies_db
+
+  scheduler:
+    build:
+      context: ./scheduler
+      dockerfile: Dockerfile
+    container_name: scheduler_service_container
+    depends_on:
+      - scrapper_service
+      - bot
