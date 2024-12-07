@@ -26,6 +26,8 @@ def get_today_movies(web_driver, page_url) -> list:
 
 def get_movie_info(web_driver, link):
     web_driver.get(link)
+    film_id = link.split('?')[1].split('&')[0].split('=')[1]
+
     # To get the img link
     img_element = (web_driver.find_element(By.CLASS_NAME, "col-12.col-md-4.float-left")
                    .find_element(By.CLASS_NAME, "img-fluid"))
@@ -36,8 +38,8 @@ def get_movie_info(web_driver, link):
     header_element = info_element.find_elements(By.CLASS_NAME, "lh-1.small")
     header_items = header_element[0].text.strip('()').split(',')
     title = header_items[0]
-    print(f"Header items: {header_items}")
-    print(f"Title: {title}")
+    # print(f"Header items: {header_items}")
+    # print(f"Title: {title}")
     duration_item = header_items[-1].split(':')
     duration = duration_item[1].strip()
 
@@ -59,6 +61,7 @@ def get_movie_info(web_driver, link):
     time_tables = [x for x in zip(days, times)]
 
     movie = Movie(
+        film_id=film_id,
         title=title,
         duration=duration,
         director=director,
@@ -70,8 +73,8 @@ def get_movie_info(web_driver, link):
     return movie
 
 
-if __name__ == '__main__':
-    url = "https://www.cinetecanacional.net/sedes/cartelera.php?cinemaId=003&dia=2024-12-06#gsc.tab=0"
+def start_scrapper(date):
+    url = f"https://www.cinetecanacional.net/sedes/cartelera.php?cinemaId=003&dia={date}#gsc.tab=0"
 
     driver = Firefox()
     try:
@@ -88,7 +91,12 @@ if __name__ == '__main__':
 
     driver.quit()
 
-    for mov in movies:
+    return movies
+
+
+if __name__ == '__main__':
+    scrapper_output = start_scrapper("2021-07-20")
+    for mov in scrapper_output:
         print(mov)
         print("-------------------------------")
 

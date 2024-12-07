@@ -1,5 +1,6 @@
 class Movie:
-    def __init__(self, title, duration, director, description, times, img_link):
+    def __init__(self, film_id, title, duration, director, description, times, img_link):
+        self.film_id = film_id
         self.title = title
         self.duration = duration
         self.director = director
