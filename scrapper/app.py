@@ -22,7 +22,7 @@ def scraper():
         print("Writing to DB...")
         db_connector.write_to_db(
             movies,
-            host="localhost",
+            host="172.17.0.1",
             user="movie_user",
             password="movie_password",
             database="movies_db"
