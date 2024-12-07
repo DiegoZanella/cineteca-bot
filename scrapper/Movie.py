@@ -28,3 +28,14 @@ class Movie:
 
     def get_img_link(self):
         return self.img_link
+
+    def json_serialize(self):
+        return {
+            "film_id": self.film_id,
+            "title": self.title,
+            "duration": self.duration,
+            "director": self.director,
+            "description": self.description,
+            "times": self.times,
+            "img_link": self.img_link
+        }

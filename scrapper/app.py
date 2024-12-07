@@ -29,7 +29,7 @@ def scraper():
         )
         print("Write to DB successful")
 
-        return jsonify(movies)
+        return jsonify([movie.json_serialize() for movie in movies])
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
