@@ -1,10 +1,8 @@
-from selenium import webdriver
 from selenium.webdriver import Firefox
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-import time
+from Movie import Movie
 
 
 def get_today_movies(web_driver, page_url) -> list:
@@ -27,14 +25,49 @@ def get_today_movies(web_driver, page_url) -> list:
 
 
 def get_movie_info(web_driver, link):
-    print(f"This is the movie's link {link}")
+    web_driver.get(link)
+    # To get the img link
+    img_element = (web_driver.find_element(By.CLASS_NAME, "col-12.col-md-4.float-left")
+                   .find_element(By.CLASS_NAME, "img-fluid"))
+    img_link = img_element.get_attribute("src")
 
-    mov = {
-        'Title': "empty",
-        "Director": "empty",
-        "Link": link
-    }
-    return mov
+    # To get the movie info
+    info_element = web_driver.find_element(By.CLASS_NAME, "col-12.col-md-5.float-left")
+    header_element = info_element.find_elements(By.CLASS_NAME, "lh-1.small")
+    header_items = header_element[0].text.strip('()').split(',')
+    title = header_items[0]
+    print(f"Header items: {header_items}")
+    print(f"Title: {title}")
+    duration_item = header_items[-1].split(':')
+    duration = duration_item[1].strip()
+
+    # to get director
+#    director = header_element[1].text.split(':')[1].strip()
+    director_element = header_element[1]
+    director_inner_html = director_element.get_attribute("innerHTML")
+    director = director_inner_html.split("&nbsp")[1].strip().strip(";")
+
+    # to get description
+    description = info_element.find_element(By.CLASS_NAME, "lh-1.text-justify.small").text
+
+    # to get timetables
+    times_element = web_driver.find_element(By.CLASS_NAME, "col-12.col-md-3.float-left")
+    days_elements = times_element.find_elements(By.TAG_NAME, 'span')
+    days = [element.text for element in days_elements]
+    times_links = times_element.find_elements(By.TAG_NAME, 'a')
+    times = [element.text for element in times_links]
+    time_tables = [x for x in zip(days, times)]
+
+    movie = Movie(
+        title=title,
+        duration=duration,
+        director=director,
+        description=description,
+        times=time_tables,
+        img_link=img_link
+    )
+
+    return movie
 
 
 if __name__ == '__main__':
@@ -53,7 +86,10 @@ if __name__ == '__main__':
     for mov_link in links_list:
         movies.append(get_movie_info(driver, mov_link))
 
-    print(movies)
     driver.quit()
+
+    for mov in movies:
+        print(mov)
+        print("-------------------------------")
 
     print("Goodbye!")
