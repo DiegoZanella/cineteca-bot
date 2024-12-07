@@ -1,0 +1,31 @@
+services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: mariadb_movies_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: movies_db
+      MYSQL_USER: movie_user
+      MYSQL_PASSWORD: movie_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/data:/var/lib/mysql # Use local data directory for persistence
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # Initialize schema
+
+  scrapper_service:
+    build:
+      context: ./scrapper
+      dockerfile: Dockerfile
+    container_name: scrapper_service_container
+    ports:
+      - "5001:5000" # Expose the Flask app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: movie_user
+      DB_PASSWORD: movie_password
+      DB_DATABASE: movies_db
