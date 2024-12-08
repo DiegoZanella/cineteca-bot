@@ -23,10 +23,6 @@ DB_NAME = os.getenv("DB_NAME", "movies_db")
 
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 
-logging.info(f"Telegram channel ID: {TELEGRAM_CHANNEL_ID}")
-logging.info(f"Database host: {DB_HOST}")
-logging.info(f"Database user: {DB_USER}")
-
 
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
@@ -106,6 +102,12 @@ def send_movies_to_channel():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     logging.info("Bot is running...")
+
+    logging.info(f"Telegram channel ID: {TELEGRAM_CHANNEL_ID}")
+    logging.info(f"Database host: {DB_HOST}")
+    logging.info(f"Database user: {DB_USER}")
+
+
     app.run(host="0.0.0.0", port=5002)
     logging.info("Bot Flask API is running...")
 
