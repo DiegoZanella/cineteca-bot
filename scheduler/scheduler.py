@@ -10,7 +10,8 @@ SCRAPER_URL = os.getenv("SCRAPER_URL")
 BOT_URL = os.getenv("BOT_URL")
 RUN_HOUR = int(os.getenv("RUN_HOUR", 7))  # Default to 7 AM
 RUN_MINUTE = int(os.getenv("RUN_MINUTE", 0))  # Default to 0 minutes
-
+print(RUN_HOUR)
+print(RUN_MINUTE)
 
 
 def run_daily_task():
