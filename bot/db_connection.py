@@ -95,16 +95,3 @@ def get_movies_for_date(date, db_host, db_user, db_password, db_name):
             cursor.close()
         if 'connection' in locals():
             connection.close()
-
-
-if __name__ == '__main__':
-    movies = get_movies_for_date(
-        date="2024-12-07",
-        db_host=DB_HOST,
-        db_user=DB_USER,
-        db_password=DB_PASSWORD,
-        db_name=DB_DATABASE
-    )
-
-    for m in movies:
-        print(m)
