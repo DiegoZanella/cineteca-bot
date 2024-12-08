@@ -13,9 +13,6 @@ logging.basicConfig(
     ]
 )
 
-# SCRAPER_URL = "http://172.17.0.1:5001/scraper"
-# BOT_URL = "http://bot_service_container:5000/send"
-
 SCRAPER_URL = os.getenv("SCRAPER_URL")
 BOT_URL = os.getenv("BOT_URL")
 RUN_HOUR = int(os.getenv("RUN_HOUR", 7))  # Default to 7 AM
@@ -32,12 +29,12 @@ def run_daily_task():
 
     if scraper_response.status_code == 200:
         logging.info("Scraper completed successfully.")
-        # Step 2: Notify the bot to send the data
-        #bot_response = requests.post(BOT_URL)
-        #if bot_response.status_code == 200:
-        #    print("Bot sent the data successfully.")
-        #else:
-        #    print(f"Bot failed: {bot_response.text}")
+
+        bot_response = requests.post(BOT_URL, json={"date": today})
+        if bot_response.status_code == 200:
+            logging.info("Bot successfully sent the movies to Telegram.")
+        else:
+            logging.error(f"Bot failed: {bot_response.status_code} {bot_response.text}")
     else:
         logging.info(f"Scraper failed: {scraper_response.text}")
 

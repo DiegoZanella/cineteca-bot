@@ -43,3 +43,20 @@ services:
       RUN_HOUR: 7  # Scheduler runtime
       RUN_MINUTE: 0
       TZ: America/Mexico_City
+
+  bot_service:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    container_name: bot_service_container
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=movie_user
+      - DB_PASSWORD=movie_password
+      - DB_DATABASE=movies_db
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - TELEGRAM_CHANNEL_ID=${TELEGRAM_CHANNEL_ID}
+    ports:
+      - "5002:5002"
