@@ -12,8 +12,10 @@ RUN apt-get update && apt-get install -y \
     locales \
     && rm -rf /var/lib/apt/lists/*
 
-# Set locale to support Spanish dates
-RUN locale-gen es_ES.UTF-8
+# Generate and set the Spanish locale
+RUN apt-get update && apt-get install -y locales && \
+    echo "es_ES.UTF-8 UTF-8" >> /etc/locale.gen && \
+    locale-gen es_ES.UTF-8
 ENV LANG es_ES.UTF-8
 ENV LANGUAGE es_ES:es
 ENV LC_ALL es_ES.UTF-8
