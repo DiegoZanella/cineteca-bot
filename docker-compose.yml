@@ -37,7 +37,6 @@ services:
     container_name: scheduler_service_container
     depends_on:
       - scrapper_service
-      - bot
     environment:
       SCRAPER_URL: http://172.17.0.1:5000/scraper
       BOT_URL: http://bot_service_container:5000/send

@@ -11,4 +11,4 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run the scheduler script
-CMD ["python", "scheduler.py"]
+CMD ["python", "-u", "scheduler.py"]
