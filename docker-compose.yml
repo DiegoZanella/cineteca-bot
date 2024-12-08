@@ -42,3 +42,4 @@ services:
       BOT_URL: http://bot_service_container:5000/send
       RUN_HOUR: 7  # Scheduler runtime
       RUN_MINUTE: 0
+      TZ: America/Mexico_City
