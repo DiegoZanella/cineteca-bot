@@ -1,9 +1,16 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 import datetime
+import os
 
-SCRAPER_URL = "http://172.17.0.1:5001/scraper"
-BOT_URL = "http://bot_service_container:5000/send"
+# SCRAPER_URL = "http://172.17.0.1:5001/scraper"
+# BOT_URL = "http://bot_service_container:5000/send"
+
+SCRAPER_URL = os.getenv("SCRAPER_URL")
+BOT_URL = os.getenv("BOT_URL")
+RUN_HOUR = int(os.getenv("RUN_HOUR", 7))  # Default to 7 AM
+RUN_MINUTE = int(os.getenv("RUN_MINUTE", 0))  # Default to 0 minutes
+
 
 
 def run_daily_task():
@@ -26,7 +33,7 @@ def run_daily_task():
 
 # Configure the scheduler
 scheduler = BlockingScheduler()
-scheduler.add_job(run_daily_task, 'cron', hour=7, minute=0)  # Run at 7:00 AM
+scheduler.add_job(run_daily_task, 'cron', hour=RUN_HOUR, minute=RUN_MINUTE)  # Run at 7:00 AM
 
 if __name__ == "__main__":
     print("Starting scheduler...")

@@ -1,8 +1,13 @@
 from logging.config import listen
-
+import os
 from flask import Flask, request, jsonify
 import scrapper
 import db_connector
+
+db_host = os.getenv("DB_HOST")  # Default to 'localhost' if not set
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_database = os.getenv("DB_DATABASE")
 
 app = Flask(__name__)
 
@@ -22,10 +27,10 @@ def scraper():
         print("Writing to DB...")
         db_connector.write_to_db(
             movies,
-            host="172.17.0.1",
-            user="movie_user",
-            password="movie_password",
-            database="movies_db"
+            host=db_host,
+            user=db_user,
+            password=db_password,
+            database=db_database
         )
         print("Write to DB successful")
 
