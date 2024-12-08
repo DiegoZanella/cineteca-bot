@@ -13,10 +13,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Set locale to support Spanish dates
-RUN locale-gen es_ES
-ENV LANG es_ES
+RUN locale-gen es_ES.UTF-8
+ENV LANG es_ES.UTF-8
 ENV LANGUAGE es_ES:es
-ENV LC_ALL es_ES
+ENV LC_ALL es_ES.UTF-8
+
 
 # Copy application files
 COPY . /app
