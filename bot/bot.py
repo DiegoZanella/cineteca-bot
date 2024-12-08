@@ -109,7 +109,6 @@ def send_movies_to_channel():
 
 # Start polling for bot commands
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     logging.info("Bot is running...")
 
     logging.info(f"Telegram channel ID: {TELEGRAM_CHANNEL_ID}")
