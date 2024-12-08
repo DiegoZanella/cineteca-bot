@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 import scrapper
 import db_connector
 
-db_host = os.getenv("DB_HOST")  # Default to 'localhost' if not set
+db_host = os.getenv("DB_HOST")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
 db_database = os.getenv("DB_DATABASE")
