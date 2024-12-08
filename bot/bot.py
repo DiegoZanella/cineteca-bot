@@ -12,6 +12,15 @@ from io import BytesIO
 
 # Initialize Flask app and Telegram bot
 app = Flask(__name__)
+
+# Configure Logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],  # Send logs to stdout for Docker
+    force=True  # Override any existing logging configurations
+)
+
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
@@ -106,7 +115,6 @@ if __name__ == "__main__":
     logging.info(f"Telegram channel ID: {TELEGRAM_CHANNEL_ID}")
     logging.info(f"Database host: {DB_HOST}")
     logging.info(f"Database user: {DB_USER}")
-
 
     app.run(host="0.0.0.0", port=5002)
     logging.info("Bot Flask API is running...")
