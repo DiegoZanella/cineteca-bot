@@ -16,7 +16,7 @@ DB_DATABASE = os.getenv("DB_DATABASE")
 
 def format_date_to_spanish(date):
     # Set the locale to Spanish (for correct day/month names)
-    locale.setlocale(locale.LC_TIME, "es_ES")
+    locale.setlocale(locale.LC_TIME, "es_ES.UTF-8")
 
     # Convert the input date (YYYY-MM-DD) to the localized format
     input_date = datetime.strptime(date, "%Y-%m-%d")
