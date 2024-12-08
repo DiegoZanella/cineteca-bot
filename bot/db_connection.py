@@ -56,7 +56,7 @@ def get_movies_for_date(date, db_host, db_user, db_password, db_name):
         # Query for movies with a screening time on the given localized date
         query = """
             SELECT DISTINCT movies.film_id, movies.title, movies.director, movies.duration,
-                            movies.description, times.day, times.time
+                            movies.img_link, movies.description, times.day, times.time
             FROM movies
             INNER JOIN times ON movies.film_id = times.film_id
             WHERE times.day = %s;
@@ -74,6 +74,7 @@ def get_movies_for_date(date, db_host, db_user, db_password, db_name):
                     "movie_id": film_id,
                     "title": row["title"],
                     "director": row["director"],
+                    "img_link": row["img_link"],
                     "duration": row["duration"],
                     "description": row["description"],
                     "screening_times": []
@@ -106,4 +107,5 @@ if __name__ == '__main__':
         db_name=DB_DATABASE
     )
 
-    print(movies)
+    for m in movies:
+        print(m)
