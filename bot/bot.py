@@ -23,6 +23,10 @@ DB_NAME = os.getenv("DB_NAME", "movies_db")
 
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 
+logging.info(f"Telegram channel ID: {TELEGRAM_CHANNEL_ID}")
+logging.info(f"Database host: {DB_HOST}")
+logging.info(f"Database user: {DB_USER}")
+
 
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
@@ -44,9 +48,10 @@ def send_movies_to_channel():
     date = data["date"]
 
     try:
+        logging.info(f"Querying database for movies on {format_date_to_spanish(date)}...")
         # Query the database for movies on the given date
         movies = get_movies_for_date(date, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-
+        logging.info(f"Number of movies found: {len(movies)}")
         if not movies:
             message = f"No movies found for {date}."
         else:
