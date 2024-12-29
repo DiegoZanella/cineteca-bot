@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     # Use the self-hosted runner
-    runs-on: bamboo
+    runs-on: self-hosted
     steps:
       - name: Check out code
         uses: actions/checkout@v3
