@@ -9,18 +9,16 @@ jobs:
   deploy:
     # Use the self-hosted runner
     runs-on: self-hosted
-    steps:
-      - name: Debug: Print Working Directory
+    steps:    
+      - name: Check out code
+        uses: actions/checkout@v3
+              
+      - name: Debug Print Working Directory
         run: |
           echo "Current directory is:"
           pwd
           echo "Listing current directory contents:"
           ls -lah
-          
-      - name: Check out code
-        uses: actions/checkout@v3
-              
-
 
       - name: Docker Compose Down
         run: |
