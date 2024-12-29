@@ -17,6 +17,10 @@ jobs:
         run: |
           docker compose down
 
+      - name: Get current dir
+        run: |
+          pwd
+
       - name: Docker Compose Build
         run: |
           docker-compose build
