@@ -12,14 +12,14 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
+              
+      - name: Get current dir
+        run: |
+          pwd
 
       - name: Docker Compose Down
         run: |
           docker compose down
-
-      - name: Get current dir
-        run: |
-          pwd
 
       - name: Docker Compose Build
         run: |
