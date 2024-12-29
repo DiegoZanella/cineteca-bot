@@ -1,0 +1,26 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    # Use the self-hosted runner
+    runs-on: bamboo
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Docker Compose Down
+        run: |
+          docker compose down
+
+      - name: Docker Compose Build
+        run: |
+          docker compose build
+
+      - name: Docker Compose Up
+        run: |
+          docker compose up -d
