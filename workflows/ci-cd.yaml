@@ -13,9 +13,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
               
-      - name: Get current dir name
+      - name: Debug: Print Working Directory
         run: |
+          echo "Current directory is:"
           pwd
+          echo "Listing current directory contents:"
+          ls -lah
 
       - name: Docker Compose Down
         run: |
