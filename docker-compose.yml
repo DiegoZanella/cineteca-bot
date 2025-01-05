@@ -58,6 +58,7 @@ services:
       - DB_DATABASE=movies_db
       - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
       - TELEGRAM_CHANNEL_ID=${TELEGRAM_CHANNEL_ID}
+      - SCRAPPER_URL=${SCRAPPER_URL}
     ports:
       - "5002:5002"
 volumes:
