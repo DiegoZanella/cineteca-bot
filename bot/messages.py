@@ -26,8 +26,9 @@ def goodbye_message():
 
 
 def help_message():
-    message = ("Available routes for this bot:"
-               "\\scrape manually requests a scrapping (pass date in format %Y-%m-%d or leave blank to use today's date"
-               "\\movies manually request movies (under construction)")
+    message = ("Available routes for this bot:\n"
+               "/scrape manually requests a scrapping (pass date in format %Y-%m-%d or "
+               "leave blank to use today's date\n"
+               "/movies manually request movies (under construction)")
 
     return message
