@@ -48,7 +48,7 @@ def send_welcome(message):
 def request_scrapping(message):
     logging.info(str(message.text.split(" ")))
     logging.info(message.text)
-    logging.info(message.chat_id)
+    logging.info(message.chat.id)
 
     # Check if no info was passed in the message
     if len(message.text.split()) == 1:  # the /scrape command will always be in the text
