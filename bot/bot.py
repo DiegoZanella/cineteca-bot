@@ -8,6 +8,7 @@ from db_connection import get_movies_for_date, format_date_to_spanish  # Import 
 import messages
 import requests
 from io import BytesIO
+import threading
 
 
 # Initialize Flask app and Telegram bot
@@ -107,8 +108,19 @@ def send_movies_to_channel():
         return jsonify({"error": "Internal server error"}), 500
 
 
+def start_polling():
+    """
+    Function to start the bot polling
+    :return:
+    """
+    logging.info("Starting bot polling...")
+    bot.infinity_polling()
+
+
 # Start polling for bot commands
 if __name__ == "__main__":
+    bot_thread = threading.Thread(target=start_polling, daemon=True)
+    bot_thread.start()
     logging.info("Bot is running...")
 
     logging.info(f"Telegram channel ID: {TELEGRAM_CHANNEL_ID}")
