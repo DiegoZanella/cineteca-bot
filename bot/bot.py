@@ -31,7 +31,7 @@ DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_USER = os.getenv("DB_USER", "movie_user")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "movie_password")
 DB_NAME = os.getenv("DB_NAME", "movies_db")
-
+SCRAPPER_URL = os.getenv("SCRAPPER_URL")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 
 
@@ -60,7 +60,7 @@ def request_scrapping(message):
         bot.reply_to(message, f"Couldn't parse date {date}. "
                               f"Please pass a valid date or leave blank to scrap today's movies")
         return
-    bot.reply_to(message, f"I will try to scrape movies for date {date}...")
+    bot.reply_to(message, f"I will try to scrape movies for date {date} from endpoint {SCRAPPER_URL}")
 
 
 @app.route('/send_movies', methods=['POST'])
