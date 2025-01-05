@@ -40,7 +40,7 @@ def send_welcome(message):
     """
     Respond to /start or /help commands.
     """
-    bot.reply_to(message, "Hello! This bot will send movie schedules when triggered.")
+    bot.reply_to(message, messages.help_message())
 
 
 @bot.message_handler(commands=["scrape"])
@@ -72,6 +72,10 @@ def request_scrapping(message):
         logging.info(f"Scraper failed: {scrapper_response.text}")
         bot.reply_to(message, f"There was a problem with the scrapping request. Check bot's logs for more info")
 
+
+@bot.message_handler(commands=["movies"])
+def request_movies(message):
+    bot.reply_to(message, "This route will someday return some movies")
 
 
 @app.route('/send_movies', methods=['POST'])

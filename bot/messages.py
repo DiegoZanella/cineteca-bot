@@ -23,3 +23,11 @@ def goodbye_message():
     message = "Esta fue la cartelera para el día de hoy. ¡Hasta mañana! 🍿🎥"
 
     return message
+
+
+def help_message():
+    message = ("Available routes for this bot:"
+               "\\scrape manually requests a scrapping (pass date in format %Y-%m-%d or leave blank to use today's date"
+               "\\movies manually request movies (under construction)")
+
+    return message
