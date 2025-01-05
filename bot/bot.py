@@ -60,7 +60,18 @@ def request_scrapping(message):
         bot.reply_to(message, f"Couldn't parse date {date}. "
                               f"Please pass a valid date or leave blank to scrap today's movies")
         return
-    bot.reply_to(message, f"I will try to scrape movies for date {date} from endpoint {SCRAPPER_URL}")
+
+    logging.info(f"Manually triggered the scraper for date: {date}")
+    scrapper_response = requests.get(f"{SCRAPPER_URL}?date={date}")
+    logging.info(str(scrapper_response))
+
+    if scrapper_response.status_code == 200:
+        logging.info("Scraper completed successfully.")
+        bot.reply_to(message, f"Successfully scraped manually movies for date {date}")
+    else:
+        logging.info(f"Scraper failed: {scrapper_response.text}")
+        bot.reply_to(message, f"There was a problem with the scrapping request. Check bot's logs for more info")
+
 
 
 @app.route('/send_movies', methods=['POST'])
