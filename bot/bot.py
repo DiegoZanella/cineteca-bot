@@ -45,8 +45,9 @@ def send_welcome(message):
 
 @bot.message_handler(commands=["scrape"])
 def request_scrapping(message):
-    date = message.text.split(" ")[1]
+    date = message.text.split(" ")[0]
     logging.info(str(message.text.split("")))
+    logging.info(message.text)
     if len(date) == 0:
         date = datetime.date.today().strftime("%Y-%m-%d")
 
