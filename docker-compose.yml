@@ -12,7 +12,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db/data:/var/lib/mysql # Use local data directory for persistence
+      - db_data:/var/lib/mysql # Use local data directory for persistence
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # Initialize schema
 
   scrapper_service:
@@ -60,3 +60,5 @@ services:
       - TELEGRAM_CHANNEL_ID=${TELEGRAM_CHANNEL_ID}
     ports:
       - "5002:5002"
+volumes:
+  db_data:
