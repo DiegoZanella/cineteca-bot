@@ -42,6 +42,11 @@ def send_welcome(message):
     bot.reply_to(message, "Hello! This bot will send movie schedules when triggered.")
 
 
+@bot.message_handler(commands=["scrape"])
+def request_scrapping(message):
+    bot.reply_to(message, "I will try to scrape today's movies...")
+
+
 @app.route('/send_movies', methods=['POST'])
 def send_movies_to_channel():
     """
