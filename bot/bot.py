@@ -8,6 +8,7 @@ from db_connection import get_movies_for_date, format_date_to_spanish  # Import 
 import messages
 import requests
 from io import BytesIO
+import datetime
 import threading
 
 
@@ -44,7 +45,16 @@ def send_welcome(message):
 
 @bot.message_handler(commands=["scrape"])
 def request_scrapping(message):
-    bot.reply_to(message, "I will try to scrape today's movies...")
+    date = message.text.split(" ")[0]
+    if len(date) == 0:
+        date = datetime.date.today().strftime("%Y-%m-%d")
+
+    try:
+        datetime.datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        bot.reply_to(message, "Couldn't parse date. Please pass a valid date or leave blank to scrap today's movies")
+        return
+    bot.reply_to(message, f"I will try to scrape movies for date {date}...")
 
 
 @app.route('/send_movies', methods=['POST'])
