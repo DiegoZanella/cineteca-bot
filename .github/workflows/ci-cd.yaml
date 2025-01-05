@@ -25,6 +25,7 @@ jobs:
           echo "TELEGRAM_CHANNEL_ID=${{ secrets.TELEGRAM_CHANNEL_ID }}" >> .env
           echo "TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> .env
           echo "SCRAPPER_URL=${{ secrets.SCRAPPER_URL }}" >> .env
+          echo "TELEGRAM_USER_ID=${{ secrets.TELEGRAM_USER_ID }}" >> .env
 
       - name: Debug Print Working Directory
         run: |

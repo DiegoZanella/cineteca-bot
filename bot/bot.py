@@ -33,6 +33,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD", "movie_password")
 DB_NAME = os.getenv("DB_NAME", "movies_db")
 SCRAPPER_URL = os.getenv("SCRAPPER_URL")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
+TELEGRAM_USER_ID = os.getenv("TELEGRAM_USER_ID")
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -47,6 +48,7 @@ def send_welcome(message):
 def request_scrapping(message):
     logging.info(str(message.text.split(" ")))
     logging.info(message.text)
+    logging.info(message.chat_id)
 
     # Check if no info was passed in the message
     if len(message.text.split()) == 1:  # the /scrape command will always be in the text
