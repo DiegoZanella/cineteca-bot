@@ -77,6 +77,12 @@ def request_scrapping(message):
 
 @bot.message_handler(commands=["movies"])
 def request_movies(message):
+    logging.info(message.chat.id)
+    if message.chat.id == TELEGRAM_USER_ID:
+        bot.reply_to(message, "YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT")
+        return
+    else:
+        bot.reply_to(message, "You are authorized to chat with this bot")
     bot.reply_to(message, "This route will someday return some movies")
 
 
