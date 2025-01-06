@@ -35,6 +35,8 @@ SCRAPPER_URL = os.getenv("SCRAPPER_URL")
 TELEGRAM_CHANNEL_ID = os.getenv("TELEGRAM_CHANNEL_ID")
 TELEGRAM_USER_ID = os.getenv("TELEGRAM_USER_ID")
 
+logging.info(f"TELEGRAM_USER_ID: {TELEGRAM_USER_ID}")
+
 
 @bot.message_handler(commands=["start", "help"])
 def send_welcome(message):
@@ -78,6 +80,7 @@ def request_scrapping(message):
 @bot.message_handler(commands=["movies"])
 def request_movies(message):
     logging.info(message.chat.id)
+
     if message.chat.id == TELEGRAM_USER_ID:
         bot.reply_to(message, "YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT")
         return
