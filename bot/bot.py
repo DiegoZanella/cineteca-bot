@@ -50,7 +50,15 @@ def send_welcome(message):
 def request_scrapping(message):
     logging.info(str(message.text.split(" ")))
     logging.info(message.text)
-    logging.info(message.chat.id)
+    logging.info(f"Received message from {message.chat.id}")
+
+    if str(message.chat.id) != str(TELEGRAM_USER_ID):
+        bot.reply_to(message, f"YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT")
+        return
+    else:
+        bot.reply_to(message, f"You are authorized to use this bot"
+                              f"USER ID: {TELEGRAM_USER_ID}\n"
+                              f"CHAT ID: {message.chat.id}")
 
     # Check if no info was passed in the message
     if len(message.text.split()) == 1:  # the /scrape command will always be in the text
@@ -79,12 +87,10 @@ def request_scrapping(message):
 
 @bot.message_handler(commands=["movies"])
 def request_movies(message):
-    logging.info(message.chat.id)
+    logging.info(f"Received message from {message.chat.id}")
 
-    if str(message.chat.id) == str(TELEGRAM_USER_ID):
-        bot.reply_to(message, f"YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT "
-                              f"USER ID: {TELEGRAM_USER_ID}\n"
-                              f"CHAT ID: {message.chat.id}")
+    if str(message.chat.id) != str(TELEGRAM_USER_ID):
+        bot.reply_to(message, f"YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT")
         return
     else:
         bot.reply_to(message, f"You are authorized to use this bot"
