@@ -81,7 +81,7 @@ def request_scrapping(message):
 def request_movies(message):
     logging.info(message.chat.id)
 
-    if message.chat.id == TELEGRAM_USER_ID:
+    if str(message.chat.id) == str(TELEGRAM_USER_ID):
         bot.reply_to(message, f"YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT "
                               f"USER ID: {TELEGRAM_USER_ID}\n"
                               f"CHAT ID: {message.chat.id}")
