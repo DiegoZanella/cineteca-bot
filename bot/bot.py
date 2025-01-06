@@ -82,10 +82,14 @@ def request_movies(message):
     logging.info(message.chat.id)
 
     if message.chat.id == TELEGRAM_USER_ID:
-        bot.reply_to(message, "YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT")
+        bot.reply_to(message, f"YOU ARE NOT AUTHORIZED TO CHAT WITH THIS BOT "
+                              f"USER ID: {TELEGRAM_USER_ID}\n"
+                              f"CHAT ID: {message.chat.id}")
         return
     else:
-        bot.reply_to(message, "You are authorized to chat with this bot")
+        bot.reply_to(message, f"You are authorized to use this bot"
+                              f"USER ID: {TELEGRAM_USER_ID}\n"
+                              f"CHAT ID: {message.chat.id}")
     bot.reply_to(message, "This route will someday return some movies")
 
 
