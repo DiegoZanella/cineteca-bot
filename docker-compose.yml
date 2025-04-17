@@ -14,6 +14,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql # Use local data directory for persistence
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # Initialize schema
+    restart: always
 
   scrapper_service:
     build:
@@ -29,6 +30,7 @@ services:
       DB_USER: movie_user
       DB_PASSWORD: movie_password
       DB_DATABASE: movies_db
+    restart: always
 
   scheduler:
     build:
@@ -43,7 +45,8 @@ services:
       RUN_HOUR: 7  # Scheduler runtime
       RUN_MINUTE: 0
       TZ: America/Mexico_City
-
+    restart: always
+      
   bot_service:
     build:
       context: ./bot
@@ -62,5 +65,7 @@ services:
       - TELEGRAM_USER_ID=${TELEGRAM_USER_ID}
     ports:
       - "5002:5002"
+    restart: always
+    
 volumes:
   db_data:
